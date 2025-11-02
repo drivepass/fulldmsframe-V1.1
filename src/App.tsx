@@ -48,6 +48,7 @@ const App = () => {
                   
                   {/* Sales Management Routes */}
                   <Route path="/sales/pipeline" element={<div className="p-6"><h1 className="text-2xl font-bold font-sora">Sales Pipeline</h1><p className="text-gray-600 mt-2">Sales pipeline management coming soon...</p></div>} />
+                  <Route path="/sales/assigned-leads" element={<div className="p-6"><h1 className="text-2xl font-bold font-sora">Assigned Leads</h1><p className="text-gray-600 mt-2">Assigned leads management coming soon...</p></div>} />
                   <Route path="/sales/quotes" element={<div className="p-6"><h1 className="text-2xl font-bold font-sora">Quotations</h1><p className="text-gray-600 mt-2">Quote management coming soon...</p></div>} />
                   <Route path="/sales/orders" element={<div className="p-6"><h1 className="text-2xl font-bold font-sora">Orders & Invoices</h1><p className="text-gray-600 mt-2">Order management coming soon...</p></div>} />
                   <Route path="/sales/performance" element={<div className="p-6"><h1 className="text-2xl font-bold font-sora">Sales Performance</h1><p className="text-gray-600 mt-2">Performance analytics coming soon...</p></div>} />
