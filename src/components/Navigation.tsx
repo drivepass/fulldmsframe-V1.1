@@ -1,389 +1,262 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 import { 
+  Users, 
+  TrendingUp, 
+  Wrench, 
+  Monitor, 
+  Package, 
+  BarChart3, 
+  Settings, 
   ChevronDown, 
   ChevronRight,
-  Home,
-  Users,
   UserPlus,
-  BarChart3,
-  Settings,
-  FileText,
-  Calendar,
-  Phone,
-  Mail,
-  Target,
-  TrendingUp,
-  Building,
-  Car,
-  DollarSign,
-  PieChart,
-  Activity,
-  Wrench,
-  ClipboardList,
-  Monitor,
-  Tv,
-  MapPin,
+  Route,
+  MessageSquare,
   Clock,
-  CheckCircle,
-  AlertTriangle
+  PieChart,
+  FileText,
+  ShoppingCart,
+  Calendar,
+  History,
+  Bell,
+  Gift,
+  Star,
+  ClipboardList,
+  UserCheck,
+  Boxes,
+  Shield,
+  Activity,
+  Tv,
+  Image,
+  MapPin,
+  LogOut
 } from 'lucide-react';
 
-export default function Navigation() {
-  const navigate = useNavigate();
+interface NavigationProps {
+  onLogout: () => void;
+}
+
+export default function Navigation({ onLogout }: NavigationProps) {
   const location = useLocation();
-  const [isCrmOpen, setIsCrmOpen] = useState(true);
-  const [isSalesOpen, setIsSalesOpen] = useState(false);
-  const [isServiceOpen, setIsServiceOpen] = useState(false);
-  const [isWorkshopOpen, setIsWorkshopOpen] = useState(false);
-  const [isDigitalOpen, setIsDigitalOpen] = useState(false);
-  const [isReportsOpen, setIsReportsOpen] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({
+    crm: true,
+    sales: false,
+    service: false,
+    workshop: false,
+    digital: false,
+    reports: false
+  });
+
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
 
   const isActive = (path: string) => location.pathname === path;
 
   const navigationItems = [
     {
-      title: 'Dashboard',
-      icon: Home,
-      path: '/',
-      color: 'text-blue-600'
-    },
-    {
+      id: 'crm',
       title: 'CRM 360',
       icon: Users,
-      isCollapsible: true,
-      isOpen: isCrmOpen,
-      setIsOpen: setIsCrmOpen,
-      color: 'text-indigo-600',
-      children: [
-        {
-          title: 'Leads Management',
-          icon: UserPlus,
-          path: '/leads',
-          description: 'Manage and track customer leads'
-        },
-        {
-          title: 'Lead Journey',
-          icon: Target,
-          path: '/leads/journey',
-          description: 'Track lead progression'
-        },
-        {
-          title: 'Customer Database',
-          icon: Users,
-          path: '/customers',
-          description: 'Customer information management'
-        },
-        {
-          title: 'Follow-up Tasks',
-          icon: Calendar,
-          path: '/follow-up',
-          description: 'Scheduled follow-up activities'
-        },
-        {
-          title: 'Communication Log',
-          icon: Phone,
-          path: '/communications',
-          description: 'Call and message history'
-        }
+      expanded: expandedSections.crm,
+      items: [
+        { path: '/leads', label: 'Lead Management', icon: UserPlus },
+        { path: '/leads/journey', label: 'Lead Journey', icon: Route },
+        { path: '/customers', label: 'Customer Database', icon: Users },
+        { path: '/follow-up', label: 'Follow-up Tasks', icon: Clock },
+        { path: '/communications', label: 'Communication Log', icon: MessageSquare }
       ]
     },
     {
+      id: 'sales',
       title: 'Sales Management',
       icon: TrendingUp,
-      isCollapsible: true,
-      isOpen: isSalesOpen,
-      setIsOpen: setIsSalesOpen,
-      color: 'text-green-600',
-      children: [
-        {
-          title: 'Sales Pipeline',
-          icon: BarChart3,
-          path: '/sales/pipeline',
-          description: 'Track sales opportunities'
-        },
-        {
-          title: 'Quotations',
-          icon: FileText,
-          path: '/sales/quotes',
-          description: 'Manage price quotes'
-        },
-        {
-          title: 'Orders & Invoices',
-          icon: DollarSign,
-          path: '/sales/orders',
-          description: 'Order and billing management'
-        },
-        {
-          title: 'Sales Performance',
-          icon: Activity,
-          path: '/sales/performance',
-          description: 'Sales team analytics'
-        }
+      expanded: expandedSections.sales,
+      items: [
+        { path: '/sales/pipeline', label: 'Sales Pipeline', icon: PieChart },
+        { path: '/sales/quotes', label: 'Quotations', icon: FileText },
+        { path: '/sales/orders', label: 'Orders & Invoices', icon: ShoppingCart },
+        { path: '/sales/performance', label: 'Sales Performance', icon: BarChart3 }
       ]
     },
     {
+      id: 'service',
       title: 'Service Management',
       icon: Wrench,
-      isCollapsible: true,
-      isOpen: isServiceOpen,
-      setIsOpen: setIsServiceOpen,
-      color: 'text-orange-600',
-      children: [
-        {
-          title: 'Service Appointments',
-          icon: Calendar,
-          path: '/service/appointments',
-          description: 'Schedule and manage service bookings'
-        },
-        {
-          title: 'Service History',
-          icon: ClipboardList,
-          path: '/service/history',
-          description: 'Customer service records'
-        },
-        {
-          title: 'Maintenance Reminders',
-          icon: Clock,
-          path: '/service/reminders',
-          description: 'Automated maintenance alerts'
-        },
-        {
-          title: 'Service Packages',
-          icon: CheckCircle,
-          path: '/service/packages',
-          description: 'Service plans and packages'
-        },
-        {
-          title: 'Customer Feedback',
-          icon: Mail,
-          path: '/service/feedback',
-          description: 'Service satisfaction surveys'
-        }
+      expanded: expandedSections.service,
+      items: [
+        { path: '/service/appointments', label: 'Service Appointments', icon: Calendar },
+        { path: '/service/history', label: 'Service History', icon: History },
+        { path: '/service/reminders', label: 'Maintenance Reminders', icon: Bell },
+        { path: '/service/packages', label: 'Service Packages', icon: Gift },
+        { path: '/service/feedback', label: 'Customer Feedback', icon: Star }
       ]
     },
     {
+      id: 'workshop',
       title: 'Workshop Management',
-      icon: Building,
-      isCollapsible: true,
-      isOpen: isWorkshopOpen,
-      setIsOpen: setIsWorkshopOpen,
-      color: 'text-red-600',
-      children: [
-        {
-          title: 'Work Orders',
-          icon: ClipboardList,
-          path: '/workshop/orders',
-          description: 'Manage repair work orders'
-        },
-        {
-          title: 'Technician Schedule',
-          icon: Users,
-          path: '/workshop/technicians',
-          description: 'Staff scheduling and assignments'
-        },
-        {
-          title: 'Parts Inventory',
-          icon: Car,
-          path: '/workshop/parts',
-          description: 'Spare parts management'
-        },
-        {
-          title: 'Quality Control',
-          icon: CheckCircle,
-          path: '/workshop/quality',
-          description: 'Service quality assurance'
-        },
-        {
-          title: 'Workshop Analytics',
-          icon: BarChart3,
-          path: '/workshop/analytics',
-          description: 'Workshop performance metrics'
-        }
+      icon: Settings,
+      expanded: expandedSections.workshop,
+      items: [
+        { path: '/workshop/orders', label: 'Work Orders', icon: ClipboardList },
+        { path: '/workshop/technicians', label: 'Technician Schedule', icon: UserCheck },
+        { path: '/workshop/parts', label: 'Parts Inventory', icon: Boxes },
+        { path: '/workshop/quality', label: 'Quality Control', icon: Shield },
+        { path: '/workshop/analytics', label: 'Workshop Analytics', icon: Activity }
       ]
     },
     {
+      id: 'digital',
       title: 'Digital Signage',
       icon: Monitor,
-      isCollapsible: true,
-      isOpen: isDigitalOpen,
-      setIsOpen: setIsDigitalOpen,
-      color: 'text-cyan-600',
-      children: [
-        {
-          title: 'Display Management',
-          icon: Tv,
-          path: '/digital/displays',
-          description: 'Manage digital screens'
-        },
-        {
-          title: 'Content Library',
-          icon: FileText,
-          path: '/digital/content',
-          description: 'Media and promotional content'
-        },
-        {
-          title: 'Scheduling',
-          icon: Calendar,
-          path: '/digital/schedule',
-          description: 'Content scheduling and playlists'
-        },
-        {
-          title: 'Location Mapping',
-          icon: MapPin,
-          path: '/digital/locations',
-          description: 'Screen location management'
-        },
-        {
-          title: 'Performance Analytics',
-          icon: Activity,
-          path: '/digital/analytics',
-          description: 'Engagement and display metrics'
-        }
+      expanded: expandedSections.digital,
+      items: [
+        { path: '/digital/displays', label: 'Display Management', icon: Tv },
+        { path: '/digital/content', label: 'Content Library', icon: Image },
+        { path: '/digital/schedule', label: 'Content Scheduling', icon: Calendar },
+        { path: '/digital/locations', label: 'Location Mapping', icon: MapPin },
+        { path: '/digital/analytics', label: 'Digital Signage Analytics', icon: BarChart3 }
       ]
     },
     {
-      title: 'Inventory',
-      icon: Car,
-      path: '/inventory',
-      color: 'text-amber-600'
-    },
-    {
+      id: 'reports',
       title: 'Reports & Analytics',
-      icon: PieChart,
-      isCollapsible: true,
-      isOpen: isReportsOpen,
-      setIsOpen: setIsReportsOpen,
-      color: 'text-purple-600',
-      children: [
-        {
-          title: 'Sales Reports',
-          icon: BarChart3,
-          path: '/reports/sales',
-          description: 'Sales performance reports'
-        },
-        {
-          title: 'Lead Analytics',
-          icon: TrendingUp,
-          path: '/reports/leads',
-          description: 'Lead conversion analytics'
-        },
-        {
-          title: 'Service Reports',
-          icon: Wrench,
-          path: '/reports/service',
-          description: 'Service department analytics'
-        },
-        {
-          title: 'Workshop Reports',
-          icon: Building,
-          path: '/reports/workshop',
-          description: 'Workshop efficiency reports'
-        },
-        {
-          title: 'Customer Insights',
-          icon: Users,
-          path: '/reports/customers',
-          description: 'Customer behavior analysis'
-        }
+      icon: BarChart3,
+      expanded: expandedSections.reports,
+      items: [
+        { path: '/reports/sales', label: 'Sales Reports', icon: TrendingUp },
+        { path: '/reports/leads', label: 'Lead Analytics', icon: Users },
+        { path: '/reports/service', label: 'Service Reports', icon: Wrench },
+        { path: '/reports/workshop', label: 'Workshop Reports', icon: Settings },
+        { path: '/reports/customers', label: 'Customer Insights', icon: Users }
       ]
-    },
-    {
-      title: 'Settings',
-      icon: Settings,
-      path: '/settings',
-      color: 'text-gray-600'
     }
   ];
 
-  const handleNavigation = (path: string) => {
-    navigate(path);
-  };
-
   return (
-    <div className="w-64 bg-white border-r border-gray-200 h-screen overflow-y-auto">
-      <div className="p-4">
-        <div className="flex items-center gap-3 mb-6">
+    <div className="w-64 bg-white border-r border-gray-200 flex flex-col h-full">
+      {/* Header */}
+      <div className="p-4 border-b border-gray-200">
+        <div className="flex items-center gap-3">
           <img 
-            src="/drivepass-logo.png" 
-            alt="DrivePass Logo" 
+            src="/assets/drivepass-logo.png" 
+            alt="DrivePass" 
             className="h-8 w-auto"
             onError={(e) => {
-              // Fallback to text logo if image fails to load
               e.currentTarget.style.display = 'none';
-              e.currentTarget.nextElementSibling.style.display = 'block';
+              e.currentTarget.nextElementSibling.style.display = 'flex';
             }}
           />
-          <div className="hidden">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1A91E2' }}>
-              D
-            </div>
+          <div className="hidden w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: '#1A91E2' }}>
+            DP
+          </div>
+          <div>
+            <h1 className="font-bold text-lg font-sora" style={{ color: '#1A91E2' }}>DrivePass</h1>
+            <p className="text-xs text-gray-500">CRM 360</p>
           </div>
         </div>
+      </div>
 
-        <nav className="space-y-2">
-          {navigationItems.map((item, index) => (
-            <div key={index}>
-              {item.isCollapsible ? (
-                <Collapsible open={item.isOpen} onOpenChange={item.setIsOpen}>
-                  <CollapsibleTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start p-3 h-auto hover:bg-gray-50"
-                    >
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-3">
-                          <item.icon className={`h-5 w-5 ${item.color}`} />
-                          <span className="font-sora font-medium text-gray-700">{item.title}</span>
-                        </div>
-                        {item.isOpen ? (
-                          <ChevronDown className="h-4 w-4 text-gray-400" />
-                        ) : (
-                          <ChevronRight className="h-4 w-4 text-gray-400" />
-                        )}
-                      </div>
-                    </Button>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="space-y-1 ml-4 mt-1">
-                    {item.children?.map((child, childIndex) => (
+      {/* Navigation */}
+      <ScrollArea className="flex-1 px-3 py-4">
+        <div className="space-y-2">
+          {/* Dashboard */}
+          <Link to="/">
+            <Button
+              variant={isActive('/') ? 'default' : 'ghost'}
+              className="w-full justify-start gap-3 h-10"
+              style={isActive('/') ? { backgroundColor: '#1A91E2' } : {}}
+            >
+              <BarChart3 className="h-4 w-4" />
+              <span className="font-medium">Dashboard</span>
+            </Button>
+          </Link>
+
+          <Separator className="my-3" />
+
+          {/* Navigation Sections */}
+          {navigationItems.map((section) => (
+            <div key={section.id} className="space-y-1">
+              <Button
+                variant="ghost"
+                className="w-full justify-between h-10 px-3"
+                onClick={() => toggleSection(section.id as keyof typeof expandedSections)}
+              >
+                <div className="flex items-center gap-3">
+                  <section.icon className="h-4 w-4" />
+                  <span className="font-medium font-sora">{section.title}</span>
+                </div>
+                {section.expanded ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </Button>
+
+              {section.expanded && (
+                <div className="ml-4 space-y-1">
+                  {section.items.map((item) => (
+                    <Link key={item.path} to={item.path}>
                       <Button
-                        key={childIndex}
-                        variant="ghost"
-                        className={`w-full justify-start p-2 h-auto text-left hover:bg-gray-50 ${
-                          isActive(child.path) ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600' : 'text-gray-600'
-                        }`}
-                        onClick={() => handleNavigation(child.path)}
+                        variant={isActive(item.path) ? 'default' : 'ghost'}
+                        className="w-full justify-start gap-3 h-9 text-sm"
+                        style={isActive(item.path) ? { backgroundColor: '#1A91E2' } : {}}
                       >
-                        <div className="flex items-start gap-3">
-                          <child.icon className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <div className="font-sora font-medium text-sm">{child.title}</div>
-                            <div className="text-xs text-gray-500 mt-0.5">{child.description}</div>
-                          </div>
-                        </div>
+                        <item.icon className="h-3.5 w-3.5" />
+                        <span>{item.label}</span>
                       </Button>
-                    ))}
-                  </CollapsibleContent>
-                </Collapsible>
-              ) : (
-                <Button
-                  variant="ghost"
-                  className={`w-full justify-start p-3 h-auto hover:bg-gray-50 ${
-                    isActive(item.path) ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600' : 'text-gray-700'
-                  }`}
-                  onClick={() => handleNavigation(item.path)}
-                >
-                  <div className="flex items-center gap-3">
-                    <item.icon className={`h-5 w-5 ${item.color}`} />
-                    <span className="font-sora font-medium">{item.title}</span>
-                  </div>
-                </Button>
+                    </Link>
+                  ))}
+                </div>
               )}
             </div>
           ))}
-        </nav>
+
+          <Separator className="my-3" />
+
+          {/* Inventory */}
+          <Link to="/inventory">
+            <Button
+              variant={isActive('/inventory') ? 'default' : 'ghost'}
+              className="w-full justify-start gap-3 h-10"
+              style={isActive('/inventory') ? { backgroundColor: '#1A91E2' } : {}}
+            >
+              <Package className="h-4 w-4" />
+              <span className="font-medium">Inventory</span>
+            </Button>
+          </Link>
+
+          {/* Settings */}
+          <Link to="/settings">
+            <Button
+              variant={isActive('/settings') ? 'default' : 'ghost'}
+              className="w-full justify-start gap-3 h-10"
+              style={isActive('/settings') ? { backgroundColor: '#1A91E2' } : {}}
+            >
+              <Settings className="h-4 w-4" />
+              <span className="font-medium">Settings</span>
+            </Button>
+          </Link>
+        </div>
+      </ScrollArea>
+
+      {/* Footer */}
+      <div className="p-4 border-t border-gray-200">
+        <Button
+          variant="ghost"
+          className="w-full justify-start gap-3 h-10 text-red-600 hover:text-red-700 hover:bg-red-50"
+          onClick={onLogout}
+        >
+          <LogOut className="h-4 w-4" />
+          <span className="font-medium">Sign Out</span>
+        </Button>
       </div>
     </div>
   );
