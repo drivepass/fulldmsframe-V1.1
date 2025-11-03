@@ -24,7 +24,7 @@ const mockAssignedLeads: AssignedLead[] = [
   {
     id: 'AL001',
     created_at: '2024-01-15 09:30 AM',
-    name: 'أحمد محمد علي',
+    name: 'Ahmed Mohammed Al-Khalidi',
     status: 'New',
     sub_status: 'Initial Contact',
     channel: 'Facebook / Messenger',
@@ -37,7 +37,7 @@ const mockAssignedLeads: AssignedLead[] = [
   {
     id: 'AL002',
     created_at: '2024-01-15 11:45 AM',
-    name: 'فاطمة عبد الرحمن',
+    name: 'Fatima Ali Al-Salem',
     status: 'Qualified',
     sub_status: 'Needs Assessment',
     channel: 'WhatsApp Business',
@@ -50,7 +50,7 @@ const mockAssignedLeads: AssignedLead[] = [
   {
     id: 'AL003',
     created_at: '2024-01-16 02:15 PM',
-    name: 'محمد عبد الله الحسن',
+    name: 'Mohammed Abdullah Al-Najjar',
     status: 'Contacted',
     sub_status: 'Follow-up Required',
     channel: 'Instagram / Direct',
@@ -63,7 +63,7 @@ const mockAssignedLeads: AssignedLead[] = [
   {
     id: 'AL004',
     created_at: '2024-01-16 04:20 PM',
-    name: 'عائشة سالم المنصوري',
+    name: 'Nora Saad Al-Harbi',
     status: 'Proposal',
     sub_status: 'Proposal Sent',
     channel: 'LinkedIn / InMail',
@@ -76,7 +76,7 @@ const mockAssignedLeads: AssignedLead[] = [
   {
     id: 'AL005',
     created_at: '2024-01-17 10:10 AM',
-    name: 'خالد أحمد البلوشي',
+    name: 'Khalid Youssef Al-Otaibi',
     status: 'Negotiation',
     sub_status: 'Price Discussion',
     channel: 'Email Campaign',
@@ -89,7 +89,7 @@ const mockAssignedLeads: AssignedLead[] = [
   {
     id: 'AL006',
     created_at: '2024-01-17 03:25 PM',
-    name: 'مريم يوسف الزهراني',
+    name: 'Sarah Ahmed Al-Mutairi',
     status: 'New',
     sub_status: 'Awaiting Response',
     channel: 'Twitter / DM',
@@ -101,54 +101,54 @@ const mockAssignedLeads: AssignedLead[] = [
   },
   {
     id: 'AL007',
-    created_at: '2024-01-18 08:15 AM',
-    name: 'عبد الرحمن محمد القحطاني',
+    created_at: '2024-01-18 09:15 AM',
+    name: 'Abdul Rahman Mohammed Al-Qahtani',
     status: 'Qualified',
-    sub_status: 'Technical Assessment',
-    channel: 'Phone Call',
-    source: 'Direct Call',
-    request_type: 'Technical Support',
-    feedback: 'Positive',
-    assigned_on: '2024-01-18 08:30 AM',
-    flagged: false
-  },
-  {
-    id: 'AL008',
-    created_at: '2024-01-18 11:20 AM',
-    name: 'نورا سعد العتيبي',
-    status: 'Contacted',
-    sub_status: 'Information Gathering',
+    sub_status: 'Technical Review',
     channel: 'WhatsApp Business',
     source: 'Website',
     request_type: 'Product Demo',
     feedback: 'Positive',
-    assigned_on: '2024-01-18 11:45 AM',
+    assigned_on: '2024-01-18 09:30 AM',
+    flagged: false
+  },
+  {
+    id: 'AL008',
+    created_at: '2024-01-18 01:20 PM',
+    name: 'Maryam Abdul Aziz Al-Dosari',
+    status: 'Contacted',
+    sub_status: 'Information Sent',
+    channel: 'Facebook / Messenger',
+    source: 'Social Media',
+    request_type: 'Service Inquiry',
+    feedback: 'Positive',
+    assigned_on: '2024-01-18 01:35 PM',
     flagged: false
   },
   {
     id: 'AL009',
-    created_at: '2024-01-18 02:30 PM',
-    name: 'سعد علي الشمري',
+    created_at: '2024-01-18 04:45 PM',
+    name: 'Omar Sulaiman Al-Shammari',
     status: 'Proposal',
     sub_status: 'Contract Review',
-    channel: 'Email',
+    channel: 'Email Campaign',
     source: 'Email Marketing',
-    request_type: 'Enterprise Solution',
+    request_type: 'Partnership',
     feedback: 'Neutral',
-    assigned_on: '2024-01-18 03:00 PM',
+    assigned_on: '2024-01-18 05:00 PM',
     flagged: true
   },
   {
     id: 'AL010',
-    created_at: '2024-01-19 09:45 AM',
-    name: 'هند محمد الدوسري',
+    created_at: '2024-01-19 11:30 AM',
+    name: 'Layla Hassan Al-Anzi',
     status: 'New',
     sub_status: 'Initial Contact',
-    channel: 'Facebook / Messenger',
+    channel: 'Instagram / Direct',
     source: 'Social Media',
-    request_type: 'General Inquiry',
+    request_type: 'Product Information',
     feedback: 'Positive',
-    assigned_on: '2024-01-19 10:00 AM',
+    assigned_on: '2024-01-19 11:45 AM',
     flagged: false
   }
 ];
@@ -349,7 +349,7 @@ export default function AssignedLeads() {
                     <TableCell style={{ width: '200px', fontSize: '13px', fontWeight: 400 }}>
                       {lead.created_at}
                     </TableCell>
-                    <TableCell style={{ width: '160px', fontSize: '13px', fontWeight: 400, direction: 'rtl', textAlign: 'right' }}>
+                    <TableCell style={{ width: '160px', fontSize: '13px', fontWeight: 400 }}>
                       {lead.name}
                     </TableCell>
                     <TableCell style={{ width: '120px', fontSize: '13px', fontWeight: 400 }}>
